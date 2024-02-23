@@ -1,24 +1,9 @@
-import { columns } from "@/components/ui/staff-table/columns";
-import { DataTable } from "@/components/ui/staff-table/data-table";
-import Image from "next/image";
+import StaffTable from "@/components/ui/staff-table/staff-table";
 
 export default async function Home() {
-  const allStaff = await getStaff();
-  console.log(allStaff);
   return (
-    <main className="max-w-screen-xl mx-auto p-24">
-      <DataTable data={allStaff} columns={columns} />
+    <main className="max-w-screen-lg mx-auto  p-24">
+      <StaffTable />
     </main>
   );
 }
-
-const getStaff = async () => {
-  try {
-    console.log(process.env.NEXT_PUBLIC_API_URL);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/staff`);
-    const staff = await res.json();
-    return staff;
-  } catch (e) {
-    console.error(e);
-  }
-};

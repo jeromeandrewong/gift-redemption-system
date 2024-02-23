@@ -6,4 +6,11 @@ export const staffSchema = z.object({
   createdAt: z.string(),
 });
 
+export const redeemedSchema = z.object({
+  team_name: z.string(),
+  redeemed_at: z.string(),
+  redeemed_by: z.string(),
+});
+
 export type Staff = z.infer<typeof staffSchema>;
+export type Redeemed = z.infer<typeof redeemedSchema>;

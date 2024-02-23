@@ -15,7 +15,7 @@ export const columns: ColumnDef<Staff>[] = [
       <DataTableColumnHeader column={column} title="Staff Pass ID" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("staff_pass_id")}</div>
+      <div className="w-[200px]">{row.getValue("staff_pass_id")}</div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -50,32 +50,44 @@ export const columns: ColumnDef<Staff>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "is_deleted",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Status" />
-  //   ),
-  //   cell: ({ row }) => {
-  //     if (row.getValue("is_deleted")) {
-  //       return (
-  //         <Badge variant="outline" className="hover: font-normal">
-  //           Removed
-  //         </Badge>
-  //       );
-  //     }
+  {
+    accessorKey: "redeemed",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Redeemed" />
+    ),
+    cell: ({ row }) => {
+      if (row.getValue("redeemed")) {
+        return (
+          <Badge variant="secondary" className="hover:font-normal">
+            Redeemed
+          </Badge>
+        );
+      }
 
-  //     return (
-  //       <Badge variant="default" className="font-normal">
-  //         Active
-  //       </Badge>
-  //     );
-  //   },
-  //   filterFn: (row, id, value) => {
-  //     return value.includes(row.getValue(id));
-  //   },
-  // },
+      return (
+        <Badge variant="default" className="font-normal">
+          Not Redeemed
+        </Badge>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => {
+      const redeemed = row.getValue("redeemed");
+      if (redeemed) {
+        return null;
+      }
+      return (
+        <DataTableRowActions
+          teamName={row.getValue("team_name")}
+          staffPassId={row.getValue("staff_pass_id")}
+          row={row}
+        />
+      );
+    },
   },
 ];
