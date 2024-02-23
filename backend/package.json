@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "test": "vitest",
-    "start": "node src/app.ts"
+    "build": "tsc",
+    "start": "node ./dist/src/app.js"
   },
   "keywords": [],
   "author": "",
