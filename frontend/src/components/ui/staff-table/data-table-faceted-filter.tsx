@@ -15,8 +15,9 @@ import {
   CommandGroup,
   CommandItem,
   CommandSeparator,
-} from "cmdk";
-import { Command } from "lucide-react";
+  Command,
+} from "../command";
+import { boolean } from "zod";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -35,7 +36,7 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
-
+  console.log(facets, selectedValues);
   return (
     <Popover>
       <PopoverTrigger asChild>

@@ -7,6 +7,7 @@ import { Badge } from "../badge";
 import { Staff } from "./data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
+import { formatDate } from "@/lib/utils";
 
 export const columns: ColumnDef<Staff>[] = [
   {
@@ -41,10 +42,12 @@ export const columns: ColumnDef<Staff>[] = [
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
+      const date = new Date(row.getValue("created_at"));
+      const timestamp = formatDate(date);
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("created_at")}
+            {timestamp}
           </span>
         </div>
       );
@@ -56,7 +59,7 @@ export const columns: ColumnDef<Staff>[] = [
       <DataTableColumnHeader column={column} title="Redeemed" />
     ),
     cell: ({ row }) => {
-      if (row.getValue("redeemed")) {
+      if (row.getValue("redeemed") === "true") {
         return (
           <Badge variant="secondary" className="hover:font-normal">
             Redeemed
@@ -78,6 +81,7 @@ export const columns: ColumnDef<Staff>[] = [
     id: "actions",
     cell: ({ row }) => {
       const redeemed = row.getValue("redeemed");
+
       if (redeemed) {
         return null;
       }

@@ -5,11 +5,15 @@ import { Table } from "@tanstack/react-table";
 
 import { Input } from "../input";
 import { Button } from "../button";
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
-
+const statuses = [
+  { value: "true", label: "Redeemed" },
+  { value: "false", label: "Not Redeemed" },
+];
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
@@ -28,7 +32,13 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-
+        {table.getColumn("redeemed") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("redeemed")}
+            title="Status"
+            options={statuses}
+          />
+        )}
         {isFiltered && (
           <Button
             variant="ghost"

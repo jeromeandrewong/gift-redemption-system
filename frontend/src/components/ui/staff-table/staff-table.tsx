@@ -8,6 +8,7 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { Redeemed, Staff } from "./data/schema";
 import { useState, useEffect } from "react";
+import { ShadowIcon } from "@radix-ui/react-icons";
 
 const Staff = () => {
   const [data, setData] = useState<Staff[] | null>([]);
@@ -40,7 +41,7 @@ const Staff = () => {
 
         return {
           ...staff,
-          redeemed: Boolean(redeemed),
+          redeemed: String(Boolean(redeemed)),
         };
       });
     };
@@ -51,7 +52,11 @@ const Staff = () => {
 
   useEffect(() => {}, [data]);
   if (staffLoading || redeemedLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full flex justify-center">
+        <ShadowIcon className="animate-spin w-10 h-10" />
+      </div>
+    );
   }
 
   if (staffError || redeemedError) {
@@ -60,7 +65,7 @@ const Staff = () => {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-xl font-semibold">Staff</h1>
+      <h1 className="text-xl font-semibold">Staff Redemption List</h1>
       <DataTable columns={columns} data={data as Staff[]} />
     </div>
   );
