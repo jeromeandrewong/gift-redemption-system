@@ -82,7 +82,7 @@ export const columns: ColumnDef<Staff>[] = [
     cell: ({ row }) => {
       const redeemed = row.getValue("redeemed");
 
-      if (redeemed) {
+      if (redeemed === "true") {
         return null;
       }
       return (
