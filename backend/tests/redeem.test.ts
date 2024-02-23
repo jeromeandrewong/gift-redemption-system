@@ -8,13 +8,11 @@ test("POST /redeem should return 400 if staff_pass_id or team_name is not provid
   const response = await supertest(app).post("/redeem").send({});
 
   expect(response.status).toBe(400);
-  expect(response.body).toHaveProperty("success");
-  expect(response.body.success).toBe(false);
   expect(response.body).toHaveProperty("error");
   expect(response.body.error).toBe("Empty request body");
 });
 
-test("POST /redeem should return 200 if team already redeemed but with success flag false", async ({
+test("POST /redeem should return 409 if team already redeemed", async ({
   expect,
 }) => {
   const staff_pass_id = "test_id";
@@ -28,9 +26,7 @@ test("POST /redeem should return 200 if team already redeemed but with success f
     .post("/redeem")
     .send({ staff_pass_id, team_name });
 
-  expect(response.status).toBe(200);
-  expect(response.body).toHaveProperty("success");
-  expect(response.body.success).toBe(false);
+  expect(response.status).toBe(409);
   expect(response.body).toHaveProperty("error");
   expect(response.body.error).toBe("Team already redeemed");
 });

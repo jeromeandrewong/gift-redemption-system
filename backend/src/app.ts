@@ -21,9 +21,22 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/staff", async (req: Request, res: Response) => {
-  const { data: staff } = await supabase.from("staff").select("*");
-  console.log(staff);
-  return res.status(200).json(staff);
+  try {
+    const { data: staff, error } = await supabase.from("staff").select("*");
+
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (!staff) {
+      return res.status(404).json({ error: "No staff data found" });
+    }
+
+    return res.status(200).json(staff);
+  } catch (e) {
+    return res.status(500).json({ error: e });
+  }
 });
 
 app.get("/redeem", async (req: Request, res: Response) => {
@@ -32,14 +45,11 @@ app.get("/redeem", async (req: Request, res: Response) => {
   return res.status(200).json(redeemed);
 });
 
-// redeem endpoint that checks if staff's team_name is in supabase table 'redeemd'
 app.post("/redeem", async (req: Request, res: Response) => {
   const { staff_pass_id, team_name } = req.body;
 
   if (!staff_pass_id || !team_name) {
-    return res
-      .status(400)
-      .json({ success: false, error: "Empty request body" });
+    return res.status(400).json({ error: "Empty request body" });
   }
 
   const { data: redeemedTeam, error } = await supabase
@@ -50,13 +60,11 @@ app.post("/redeem", async (req: Request, res: Response) => {
 
   if (error) {
     console.log(error);
-    return res.status(500).json({ success: false, error: error.message });
+    return res.status(500).json({ error: error });
   }
 
   if (teamExists) {
-    return res
-      .status(200)
-      .json({ success: false, error: "Team already redeemed" });
+    return res.status(409).json({ error: "Team already redeemed" });
   }
 
   const { error: insertError } = await supabase
@@ -65,12 +73,10 @@ app.post("/redeem", async (req: Request, res: Response) => {
 
   if (insertError) {
     console.log(insertError);
-    return res.status(500).json({ success: false, error: insertError.message });
+    return res.status(500).json({ error: insertError.message });
   }
 
-  return res
-    .status(201)
-    .json({ success: true, message: "Redeemed successfully" });
+  return res.status(201).json({ message: "Redeemed successfully" });
 });
 if (process.env.NODE_ENV !== "test") {
   app.listen(APP_PORT, () => {
