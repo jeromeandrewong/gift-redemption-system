@@ -53,4 +53,4 @@ https://govtechoa.onrender.com
 3. `pnpm i`
 4. `pnpm run dev`
 5. `pnpm run test` to run tests
-   ![tests](<CleanShot 2024-02-24 at 00.20.26@2x.png>)
+   ![tests](/backend/public/test.png)

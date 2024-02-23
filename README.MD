@@ -1,6 +1,6 @@
 # Gift Redemption System
 
-![demo image](<CleanShot 2024-02-23 at 20.23.56@2x.png>)
+![demo image](/public/demo.png)
 [Live Demo Link](https://govtech-oa.vercel.app/)
 Instructions to run locally are within each folder's README (will need `env` variables from me)
 
