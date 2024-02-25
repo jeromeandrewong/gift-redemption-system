@@ -4,12 +4,12 @@ import { app } from "../src/app";
 
 test("GET /staff should return all staff", async ({ expect }) => {
   const response = await supertest(app).get("/staff");
-  const data = response.body.data;
-  const staff = data[0];
+  const body = response.body;
+  const staff = body[0];
 
   expect(response.status).toBe(200);
-  expect(data).toBeInstanceOf(Array);
-  expect(data.length).toBeGreaterThan(0);
+  expect(body).toBeInstanceOf(Array);
+  expect(body.length).toBeGreaterThan(0);
 
   expect(staff).toHaveProperty("staff_pass_id");
   expect(staff).toHaveProperty("team_name");

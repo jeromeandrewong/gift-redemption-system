@@ -16,7 +16,7 @@ export const getStaff = async (req: Request, res: Response) => {
         .json({ success: false, error: "No staff data found" });
     }
 
-    return res.status(200).json({ success: true, data: staffData });
+    return res.status(200).json(staffData);
   } catch (err) {
     console.log(err);
     return res
