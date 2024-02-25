@@ -4,6 +4,10 @@
 [Live Demo Link](https://govtech-oa.vercel.app/)
 Instructions to run locally are within each folder's README (will need `env` variables from me)
 
+## Disclaimer
+
+If the site takes a while to render, it is due to [Render's free tier](https://docs.render.com/free#spinning-down-on-idle) which puts the server to sleep after 15 minutes of inactivity and requires a cold start.
+
 ## Description
 
 Gift Redemption System that helps to track the redemption of gifts by the employees of the company.
