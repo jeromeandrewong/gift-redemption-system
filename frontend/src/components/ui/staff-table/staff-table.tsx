@@ -29,9 +29,7 @@ const Staff = () => {
     queryKey: ["redeemed"],
     queryFn: getRedeemed,
   });
-  if (redeemedData) {
-    console.log(redeemedData);
-  }
+
   useEffect(() => {
     const getStaffDatawithRedeemed = (staffData: Staff[]) => {
       return staffData.map((staff: Staff) => {
@@ -78,7 +76,7 @@ const getStaff = async () => {
 };
 
 const getRedeemed = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/redeem`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/redemption`);
   const redeemed = await res.json();
   return redeemed;
 };

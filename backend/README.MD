@@ -30,7 +30,7 @@ https://govtechoa.onrender.com
 ### Redeem gift
 
 - Method: `POST`
-- URL: `/redeem`
+- URL: `/redemption`
 - Description: query to supabase to update `redeemed` table in supabase
 - Request:
   ```json
