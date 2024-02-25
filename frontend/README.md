@@ -2,12 +2,18 @@
 
 https://govtech-oa.vercel.app/
 
-## Running Locally
+## Folder Structure
 
-```bash
-cd frontend
-pnpm i
-pnpm dev
+```
+├── public                         # Public assets
+├── src                            # source code
+    ├── app                        # Nextjs app router
+    ├── components                 # components
+        ├── ui                     # low-level ui components
+        ├── exampleComponent.tsx   # high-level abstracted components/features
+    ├── lib                        # library for reusable/helper functions
+        ├── util.ts                # utility functions
+
 ```
 
 ## Tech Stack
@@ -20,9 +26,18 @@ pnpm dev
 - Shadcn.ui/Tailwind CSS (styling)
 - Vercel (Frontend deployment)
 
-## Featurees
+## Features
 
 - Search, filter, sort and pagination of table data
 - Toast notifications
 - suspense loading state for better UX
+- parallel fetching of data for better performance
 - caching and invalidation of API queries
+
+## Running Locally
+
+```bash
+cd frontend
+pnpm i
+pnpm dev
+```

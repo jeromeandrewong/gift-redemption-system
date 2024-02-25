@@ -4,6 +4,27 @@
 
 https://govtechoa.onrender.com
 
+## Folder Structure
+
+```
+├── public                # Public assets
+├── src                   # source code
+    ├── controllers       # handles route logic
+    ├── routes            # route definitions
+    ├── app.ts            # express app
+├── test                  # unit tests
+
+```
+
+## Tech Stack
+
+- Typescript
+- Express (node.js)
+- Supabase (database)
+- Vitest (unit test and test runner)
+- Supertest (high-level HTTP assertions)
+- Render (deployment)
+
 ## Endpoints
 
 ### Get all staff
@@ -15,16 +36,16 @@ https://govtechoa.onrender.com
   ```json
   [
     {
-        "staff_pass_id": "BOSS_6FDFMJGFV6YM",
-        "team_name": "GRYFFINDOR",
-        "created_at": 1620761965320
+      "staff_pass_id": "BOSS_6FDFMJGFV6YM",
+      "team_name": "GRYFFINDOR",
+      "created_at": 1620761965320
     },
     {
-        "staff_pass_id": "MANAGER_P49NK2CS3B5G",
-        "team_name": "GRYFFINDOR",
-        "created_at": 1614784710249
-    },
-  }
+      "staff_pass_id": "MANAGER_P49NK2CS3B5G",
+      "team_name": "GRYFFINDOR",
+      "created_at": 1614784710249
+    }
+  ]
   ```
 
 ### Redeem gift
