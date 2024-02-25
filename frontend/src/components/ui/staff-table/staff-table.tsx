@@ -3,6 +3,7 @@ import {
   useQuery,
   QueryClient,
   QueryClientProvider,
+  useQueries,
 } from "@tanstack/react-query";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
@@ -10,25 +11,44 @@ import { Redeemed, Staff } from "./data/schema";
 import { useState, useEffect } from "react";
 import { ShadowIcon } from "@radix-ui/react-icons";
 
+const queryClient = new QueryClient();
+
+const StaffTable = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Staff />
+    </QueryClientProvider>
+  );
+};
+
+export default StaffTable;
+
 const Staff = () => {
   const [data, setData] = useState<Staff[] | null>([]);
+
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["staff"],
+        queryFn: getStaff,
+      },
+      {
+        queryKey: ["redeemed"],
+        queryFn: getRedeemed,
+      },
+    ],
+  });
   const {
     data: staffData,
     isLoading: staffLoading,
     error: staffError,
-  } = useQuery({
-    queryKey: ["staff"],
-    queryFn: getStaff,
-  });
+  } = results[0];
 
   const {
     data: redeemedData,
     isLoading: redeemedLoading,
     error: redeemedError,
-  } = useQuery({
-    queryKey: ["redeemed"],
-    queryFn: getRedeemed,
-  });
+  } = results[1];
 
   useEffect(() => {
     const getStaffDatawithRedeemed = (staffData: Staff[]) => {
@@ -43,12 +63,13 @@ const Staff = () => {
         };
       });
     };
+
     if (!staffData || !redeemedData) return;
+
     const staffDataWithRedeemed = getStaffDatawithRedeemed(staffData);
     setData(staffDataWithRedeemed);
   }, [staffData, redeemedData]);
 
-  useEffect(() => {}, [data]);
   if (staffLoading || redeemedLoading) {
     return (
       <div className="w-full flex justify-center">
@@ -80,15 +101,3 @@ const getRedeemed = async () => {
   const redeemed = await res.json();
   return redeemed;
 };
-
-const queryClient = new QueryClient();
-
-const StaffTable = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Staff />
-    </QueryClientProvider>
-  );
-};
-
-export default StaffTable;
