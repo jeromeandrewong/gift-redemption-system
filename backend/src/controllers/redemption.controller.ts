@@ -20,14 +20,14 @@ export const postRedemptions = async (req: Request, res: Response) => {
     .from("redeemed")
     .select("*")
     .eq("team_name", team_name)
-    .single();
+    .limit(1);
 
   if (error) {
     console.log(error);
     return res.status(500).json({ success: false, error: error.message });
   }
 
-  if (redeemedTeam) {
+  if (redeemedTeam.length) {
     return res
       .status(409)
       .json({ success: false, error: "Team already redeemed" });
