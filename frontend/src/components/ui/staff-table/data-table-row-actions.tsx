@@ -31,10 +31,13 @@ export function DataTableRowActions<TData>({
     staffPassId: string;
   }) => {
     console.log(teamName, staffPassId);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/redeem`, {
-      team_name: data.teamName,
-      staff_pass_id: data.staffPassId,
-    });
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/redemption`,
+      {
+        team_name: data.teamName,
+        staff_pass_id: data.staffPassId,
+      },
+    );
     return res.data;
   };
 
