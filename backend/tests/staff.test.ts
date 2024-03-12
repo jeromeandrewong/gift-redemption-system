@@ -3,7 +3,9 @@ import supertest from "supertest";
 import { app } from "../src/app";
 
 test("GET /staff should return all staff", async ({ expect }) => {
+  // act
   const response = await supertest(app).get("/staff");
+  // assert
   const body = response.body;
   const staff = body[0];
 

@@ -101,3 +101,20 @@ const getRedeemed = async () => {
   const redeemed = await res.json();
   return redeemed;
 };
+
+// useEffect to fetch data example:
+/*
+const staff = ({role})=>{
+  const [data, setData] = useState([]);
+  const [error, setError] = useState();
+
+  useEffect(()=>{
+    fetch(`${endpoint}/${role}`)
+    .then(res => res.json())
+    .then(data => setData(data))
+    .catch(err => setError(err))
+  }, [role])
+
+  // JSX
+}
+*/
